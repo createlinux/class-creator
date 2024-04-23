@@ -2,6 +2,11 @@
 
 namespace Createlinux\ClassCreator\Builders;
 
+use Createlinux\ClassCreator\Builders\Collections\ClassPropertyCollection;
+use Createlinux\ClassCreator\Builders\Collections\ClassUsingCollection;
+use Createlinux\ClassCreator\Builders\Collections\MethodCollection;
+use Illuminate\Support\Str;
+
 class ClassBuilder
 {
     protected string $name = '';
@@ -11,10 +16,10 @@ class ClassBuilder
     /**
      * @var array 引入的类
      */
-    protected array $usingClasses = [];
+    protected ClassUsingCollection $usingClasses;
 
     /**
-     * @var string 依赖的类
+     * @var string 继承的类
      */
     protected ?ClassBuilder $extends = null;
 
@@ -26,9 +31,13 @@ class ClassBuilder
     protected bool $isAbstract = false;
 
     /**
-     * @var array<\MethodItem> 方法
+     * @var MethodCollection 方法
      */
-    protected array $methods = [];
+    protected MethodCollection $methods;
+    /**
+     * @var array 属性
+     */
+    protected ClassPropertyCollection $properties;
 
     /**
      * @param string $name 类名称，大驼峰命名
@@ -36,8 +45,13 @@ class ClassBuilder
      */
     public function __construct(string $name, string $label = '')
     {
-        $this->name = $name;
+        $name = to_singular_name($name);
+        $this->name = Str::studly($name);
         $this->label = $label;
+
+        $this->methods = new MethodCollection();
+        $this->usingClasses = new ClassUsingCollection();
+        $this->properties = new ClassPropertyCollection();
     }
 
     public function getFileContent()
@@ -73,5 +87,16 @@ class ClassBuilder
     {
         $this->isAbstract = $isAbstract;
     }
+
+    public function getUsingClasses(): array
+    {
+        return $this->usingClasses;
+    }
+
+    public function getMethods(): MethodCollection
+    {
+        return $this->methods;
+    }
+
 
 }
