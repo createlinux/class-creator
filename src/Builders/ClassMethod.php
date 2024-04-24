@@ -3,20 +3,23 @@
 namespace Createlinux\ClassCreator\Builders;
 
 use Createlinux\ClassCreator\Builders\Collections\MethodArgumentCollection;
+use Createlinux\ClassCreator\Builders\Method\MethodIdentify;
 use Illuminate\Support\Str;
 
 class ClassMethod
 {
     protected string $name = '';
-    protected string $body = '';
+    protected string $body = "{\n}";
     protected array $returnType = [];
     protected MethodArgumentCollection $arguments;
+    private MethodIdentify $identify;
 
-    public function __construct(string $name)
+    public function __construct(string $name, MethodIdentify $identify)
     {
 
         $this->arguments = new MethodArgumentCollection();
         $this->name = Str::camel($name);
+        $this->identify = $identify;
     }
 
     public function getName(): string
@@ -44,8 +47,35 @@ class ClassMethod
         return $this->body;
     }
 
+    /**
+     *
+     * 获取方法的纯文本
+     * @return string
+     */
+    public function getOutputPlainText()
+    {
+        //
+        $identify = $this->getIdentify()->name;
+        $method = <<<BODY
+$identify function {$this->getName()}()
+{$this->getBody()}
+BODY;
+        return $method;
+    }
+
     public function getReturnType(): array
     {
         return $this->returnType;
+    }
+
+    public function getIdentify(): MethodIdentify
+    {
+        return $this->identify;
+    }
+
+    public function setBody(string $body): ClassMethod
+    {
+        $this->body = $body;
+        return $this;
     }
 }
