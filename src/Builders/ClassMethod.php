@@ -27,7 +27,25 @@ class ClassMethod
     public function toArray()
     {
         return [
-            'name' => $this->getName()
+            'name' => $this->getName(),
+            'arguments' => $this->getArguments()->toArray(),
+            'body' => $this->getBody(),
+            'returnType' => $this->getReturnType()
         ];
+    }
+
+    public function getArguments(): MethodArgumentCollection
+    {
+        return $this->arguments;
+    }
+
+    public function getBody(): string
+    {
+        return $this->body;
+    }
+
+    public function getReturnType(): array
+    {
+        return $this->returnType;
     }
 }
