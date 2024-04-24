@@ -8,7 +8,7 @@ class MethodArgument
     protected MethodDataType $dataType;
     protected $defaultValue = null;
 
-    public function __construct(string $name,MethodDataType $dataType, $defaultValue)
+    public function __construct(string $name, MethodDataType $dataType, $defaultValue)
     {
 
         $this->name = $name;
@@ -32,6 +32,15 @@ class MethodArgument
     public function getDefaultValue()
     {
         return $this->defaultValue;
+    }
+
+    public function getDefaultValuePlain()
+    {
+        if ($this->dataType->name === 'string') {
+            return "'{$this->getDefaultValue()}'";
+        }
+
+        return $this->getDefaultValue();
     }
 
     public function toArray()

@@ -8,6 +8,9 @@ use Illuminate\Support\Collection;
 
 class MethodArgumentCollection
 {
+    /**
+     * @var Collection<MethodArgument>
+     */
     protected Collection $items;
 
     public function __construct()
@@ -28,5 +31,29 @@ class MethodArgumentCollection
             $list[] = $item->toArray();
         }
         return $list;
+    }
+
+    /**
+     *
+     *
+     * @return Collection<MethodArgument>
+     */
+    public function getItems(): Collection
+    {
+        return $this->items;
+    }
+
+    public function getOutputPlain()
+    {
+        $lines = [];
+        /** @var MethodArgument $item */
+        foreach ($this->getItems() as $item) {
+            $argItem = "{$item->getDataType()->name} \${$item->getName()}";
+            if ($item->getDefaultValue()) {
+                $argItem = $argItem . "= {$item->getDefaultValuePlain()}";
+            }
+            $lines[] = $argItem;
+        }
+        return implode(", ", $lines);
     }
 }

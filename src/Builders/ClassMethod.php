@@ -3,6 +3,7 @@
 namespace Createlinux\ClassCreator\Builders;
 
 use Createlinux\ClassCreator\Builders\Collections\MethodArgumentCollection;
+use Createlinux\ClassCreator\Builders\Method\MethodArgument;
 use Createlinux\ClassCreator\Builders\Method\MethodIdentify;
 use Illuminate\Support\Str;
 
@@ -56,8 +57,12 @@ class ClassMethod
     {
         //
         $identify = $this->getIdentify()->name;
+
+        /** @var MethodArgument $argument */
+
+
         $method = <<<BODY
-$identify function {$this->getName()}()
+$identify function {$this->getName()}({$this->getArguments()->getOutputPlain()})
 {$this->getBody()}
 BODY;
         return $method;
@@ -73,9 +78,15 @@ BODY;
         return $this->identify;
     }
 
+    /**
+     *
+     * 设置方法体，不包含{}
+     * @param string $body
+     * @return $this
+     */
     public function setBody(string $body): ClassMethod
     {
-        $this->body = $body;
+        $this->body = "{\n{$body}\n}";
         return $this;
     }
 }
