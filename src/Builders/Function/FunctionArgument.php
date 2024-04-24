@@ -1,8 +1,8 @@
 <?php
 
-namespace Createlinux\ClassCreator\Builders\Method;
+namespace Createlinux\ClassCreator\Builders\Function;
 
-class MethodArgument
+class FunctionArgument
 {
     protected string $name = '';
     protected MethodDataType $dataType;

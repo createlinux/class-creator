@@ -2,14 +2,14 @@
 
 namespace Createlinux\ClassCreator\Builders\Collections;
 
-use Createlinux\ClassCreator\Builders\ClassMethod;
-use Createlinux\ClassCreator\Builders\Method\MethodArgument;
+use Createlinux\ClassCreator\Builders\FunctionBuilder;
+use Createlinux\ClassCreator\Builders\Function\FunctionArgument;
 use Illuminate\Support\Collection;
 
-class MethodArgumentCollection
+class FunctionArgumentCollection
 {
     /**
-     * @var Collection<MethodArgument>
+     * @var Collection<FunctionArgument>
      */
     protected Collection $items;
 
@@ -18,7 +18,7 @@ class MethodArgumentCollection
         $this->items = new Collection();
     }
 
-    public function put(MethodArgument $methodArgument)
+    public function put(FunctionArgument $methodArgument)
     {
         $this->items->put($methodArgument->getName(), $methodArgument);
         return $this;
@@ -36,7 +36,7 @@ class MethodArgumentCollection
     /**
      *
      *
-     * @return Collection<MethodArgument>
+     * @return Collection<FunctionArgument>
      */
     public function getItems(): Collection
     {
@@ -46,7 +46,7 @@ class MethodArgumentCollection
     public function getOutputPlain()
     {
         $lines = [];
-        /** @var MethodArgument $item */
+        /** @var FunctionArgument $item */
         foreach ($this->getItems() as $item) {
             $argItem = "{$item->getDataType()->name} \${$item->getName()}";
             if ($item->getDefaultValue()) {

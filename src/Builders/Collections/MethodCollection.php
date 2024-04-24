@@ -2,7 +2,7 @@
 
 namespace Createlinux\ClassCreator\Builders\Collections;
 
-use Createlinux\ClassCreator\Builders\ClassMethod;
+use Createlinux\ClassCreator\Builders\FunctionBuilder;
 use Illuminate\Support\Collection;
 
 class MethodCollection
@@ -14,7 +14,7 @@ class MethodCollection
         $this->items = new Collection();
     }
 
-    public function put(ClassMethod $method)
+    public function put(FunctionBuilder $method)
     {
         $this->items->put($method->getName(), $method);
         return $this;

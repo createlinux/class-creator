@@ -2,23 +2,23 @@
 
 namespace Createlinux\ClassCreator\Builders;
 
-use Createlinux\ClassCreator\Builders\Collections\MethodArgumentCollection;
-use Createlinux\ClassCreator\Builders\Method\MethodArgument;
-use Createlinux\ClassCreator\Builders\Method\MethodIdentify;
+use Createlinux\ClassCreator\Builders\Collections\FunctionArgumentCollection;
+use Createlinux\ClassCreator\Builders\Function\FunctionArgument;
+use Createlinux\ClassCreator\Builders\Function\FunctionIdentify;
 use Illuminate\Support\Str;
 
-class ClassMethod
+class FunctionBuilder
 {
     protected string $name = '';
     protected string $body = "{\n}";
     protected array $returnType = [];
-    protected MethodArgumentCollection $arguments;
-    private MethodIdentify $identify;
+    protected FunctionArgumentCollection $arguments;
+    private ?FunctionIdentify $identify;
 
-    public function __construct(string $name, MethodIdentify $identify)
+    public function __construct(string $name, FunctionIdentify $identify = null)
     {
 
-        $this->arguments = new MethodArgumentCollection();
+        $this->arguments = new FunctionArgumentCollection();
         $this->name = Str::camel($name);
         $this->identify = $identify;
     }
@@ -38,7 +38,7 @@ class ClassMethod
         ];
     }
 
-    public function getArguments(): MethodArgumentCollection
+    public function getArguments(): FunctionArgumentCollection
     {
         return $this->arguments;
     }
@@ -56,13 +56,13 @@ class ClassMethod
     public function getOutputPlainText()
     {
         //
-        $identify = $this->getIdentify()->name;
+        $identify = $this->getIdentify() ? $this->getIdentify()->name." " : '';
 
-        /** @var MethodArgument $argument */
+        /** @var FunctionArgument $argument */
 
 
         $method = <<<BODY
-$identify function {$this->getName()}({$this->getArguments()->getOutputPlain()})
+{$identify}function {$this->getName()}({$this->getArguments()->getOutputPlain()})
 {$this->getBody()}
 BODY;
         return $method;
@@ -73,7 +73,7 @@ BODY;
         return $this->returnType;
     }
 
-    public function getIdentify(): MethodIdentify
+    public function getIdentify(): FunctionIdentify|null
     {
         return $this->identify;
     }
@@ -84,7 +84,7 @@ BODY;
      * @param string $body
      * @return $this
      */
-    public function setBody(string $body): ClassMethod
+    public function setBody(string $body): FunctionBuilder
     {
         $this->body = "{\n{$body}\n}";
         return $this;

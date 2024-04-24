@@ -1,5 +1,5 @@
 <?php
-namespace Createlinux\ClassCreator\Builders\Method;
+namespace Createlinux\ClassCreator\Builders\Function;
 
 enum MethodDataType
 {

@@ -54,10 +54,6 @@ class ClassBuilder
         $this->properties = new ClassPropertyCollection();
     }
 
-    public function getFileContent()
-    {
-    }
-
     public function getName(): string
     {
         return $this->name;
@@ -96,6 +92,12 @@ class ClassBuilder
     public function getMethods(): MethodCollection
     {
         return $this->methods;
+    }
+
+    public function getOutputPlainText()
+    {
+        //TODO 输出类文件
+        return "";
     }
 
 
