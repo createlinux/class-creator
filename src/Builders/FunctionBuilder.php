@@ -9,6 +9,10 @@ use Createlinux\ClassCreator\Builders\Function\FunctionArgument;
 use Createlinux\ClassCreator\Builders\Function\FunctionIdentify;
 use Illuminate\Support\Str;
 
+/**
+ * @class 类方法或者函数构造器
+ *
+ */
 class FunctionBuilder
 {
     protected string $name = '';

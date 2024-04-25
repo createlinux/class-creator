@@ -5,6 +5,10 @@ namespace Createlinux\ClassCreator\Builders\Function;
 use Createlinux\ClassCreator\Builders\Basic\DataType;
 use Createlinux\ClassCreator\Builders\Collections\DataTypeCollection;
 
+/**
+ * @class 函数参数类
+ *
+ */
 class FunctionArgument
 {
     protected string $name = '';
