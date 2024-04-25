@@ -7,9 +7,9 @@ use Createlinux\ClassCreator\Builders\ClassBuilder;
 
 class UsingClassCollection extends CollectionAbstract
 {
-    public function put($key,ClassBuilder $value)
+    public function put(string $nameWithNamespace, ClassBuilder $value)
     {
-        $this->getItems()->put($key, $value);
+        $this->getItems()->put($nameWithNamespace, $value);
         return $this;
     }
 

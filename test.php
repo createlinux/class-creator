@@ -3,22 +3,24 @@ require_once __DIR__ . "/vendor/autoload.php";
 
 use Createlinux\ClassCreator\Builders\ClassBuilder;
 
-$doctorBuilder = create_class_builder("Doctor", "\\App\\Http\\Controllers", "医生模型");
+$doctorBuilder = create_class_builder("Doctor", "App\\Http\\Controllers", "医生模型");
 
-$userBuilder = create_class_builder("User", "\\App\\Models", "用户");
+$userModel = create_class_builder("User", "App\\Models", "用户");
 
 
 $UserBuilder = create_class_builder('DoctorUser', "App\Http\\Controllers", "用户");
+$UserBuilder->addProperty();
 
 $UserBuilder->setExtend($doctorBuilder);
-$UserBuilder->pushUsingClass($UserBuilder);
+$UserBuilder->pushUsingClass($userModel);
+$UserBuilder->pushUsingClass(create_class_builder("TestUser","App\\Http\\Controllers","测试用户"));
 
 $method = $UserBuilder->createMethod("store");
 $method
     ->getReturnType()
     ->pushFloat()
     ->pushInt()
-    ->pushObject(ClassBuilder::class, $UserBuilder);
+    ->pushObject($userModel->getNameWithNamespace(), $UserBuilder);
 
 $method->createArgument("name")
     ->getDataType()

@@ -49,11 +49,7 @@ class DataTypeCollection extends CollectionAbstract
 
     public function pushObject(string $classNameWithNamespace, ?ClassBuilder $parentClassBuilder = null)
     {
-        if (!class_exists($classNameWithNamespace)) {
-            throw new FileNotFoundException("class " . $classNameWithNamespace . " not found");
-        }
-
-        $newClassBuilder = create_class_builder(class_basename($classNameWithNamespace),"");
+        $newClassBuilder = create_class_builder(class_basename($classNameWithNamespace), get_class_namespace($classNameWithNamespace));
 
         $this->getUsingClasses()->put($classNameWithNamespace, $newClassBuilder);
 

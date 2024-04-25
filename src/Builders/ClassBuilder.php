@@ -2,10 +2,10 @@
 
 namespace Createlinux\ClassCreator\Builders;
 
+use Createlinux\ClassCreator\Builders\Basic\VisibilityIdentify;
 use Createlinux\ClassCreator\Builders\Collections\ClassPropertyCollection;
-use Createlinux\ClassCreator\Builders\Collections\UsingClassCollection;
 use Createlinux\ClassCreator\Builders\Collections\MethodCollection;
-use Createlinux\ClassCreator\Builders\Function\FunctionIdentify;
+use Createlinux\ClassCreator\Builders\Collections\UsingClassCollection;
 use Illuminate\Support\Str;
 
 /**
@@ -90,7 +90,7 @@ class ClassBuilder
         return $this->usingClasses;
     }
 
-    public function createMethod(string $name, $functionIdentify = FunctionIdentify::public)
+    public function createMethod(string $name, $functionIdentify = VisibilityIdentify::public)
     {
         $functionBuilder = new FunctionBuilder($name, $functionIdentify);
         $this->getMethods()->put($functionBuilder);
@@ -145,7 +145,7 @@ CLASS;
     public function setExtend(?ClassBuilder $classBuilder): ClassBuilder
     {
         $this->extend = $classBuilder;
-        $this->getUsingClasses()->put($classBuilder->getName(), $classBuilder);
+        $this->getUsingClasses()->put($classBuilder->getNameWithNamespace(), $classBuilder);
         return $this;
     }
 
@@ -163,13 +163,23 @@ CLASS;
     public function pushUsingClass(ClassBuilder $classBuilder)
     {
         //TODO 这里的name值携带namespace
-        $this->getUsingClasses()->put($classBuilder->getName(), $classBuilder);
+        $this->getUsingClasses()->put($classBuilder->getNameWithNamespace(), $classBuilder);
         return $this;
     }
 
     public function getNameWithNamespace()
     {
         return $this->getNamespace() . "\\" . $this->getName();
+    }
+
+    public function addProperty()
+    {
+        //TODO 添加
+    }
+
+    public function getProperties(): ClassPropertyCollection
+    {
+        return $this->properties;
     }
 
 

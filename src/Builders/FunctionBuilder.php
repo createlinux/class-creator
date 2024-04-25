@@ -2,11 +2,11 @@
 
 namespace Createlinux\ClassCreator\Builders;
 
+use Createlinux\ClassCreator\Builders\Basic\VisibilityIdentify;
 use Createlinux\ClassCreator\Builders\Collections\DataTypeCollection;
 use Createlinux\ClassCreator\Builders\Collections\FunctionArgumentCollection;
 use Createlinux\ClassCreator\Builders\Collections\UsingClassCollection;
 use Createlinux\ClassCreator\Builders\Function\FunctionArgument;
-use Createlinux\ClassCreator\Builders\Function\FunctionIdentify;
 use Illuminate\Support\Str;
 
 /**
@@ -19,15 +19,15 @@ class FunctionBuilder
     protected string $body = "{\n    }";
     protected DataTypeCollection $returnType;
     protected FunctionArgumentCollection $arguments;
-    private ?FunctionIdentify $identify;
+    private ?VisibilityIdentify $visibilityIdentify;
     protected UsingClassCollection $usingClasses;
 
-    public function __construct(string $name, FunctionIdentify $identify = null)
+    public function __construct(string $name, VisibilityIdentify $visibility = null)
     {
 
         $this->arguments = new FunctionArgumentCollection();
         $this->name = Str::camel($name);
-        $this->identify = $identify;
+        $this->visibilityIdentify = $visibility;
         $this->returnType = new DataTypeCollection();
         $this->usingClasses = new UsingClassCollection();
     }
@@ -65,7 +65,7 @@ class FunctionBuilder
     public function getOutputPlainText(): string
     {
         //
-        $identify = $this->getIdentify() ? "    " . $this->getIdentify()->name . " " : '';
+        $identify = $this->getVisibilityIdentify() ? "    " . $this->getVisibilityIdentify()->name . " " : '';
 
         $returnDataType = $this->getReturnType()->count() ? " : {$this->getReturnType()->implode()}" : "";
         return "
@@ -78,9 +78,9 @@ class FunctionBuilder
         return $this->returnType;
     }
 
-    public function getIdentify(): FunctionIdentify|null
+    public function getVisibilityIdentify(): VisibilityIdentify|null
     {
-        return $this->identify;
+        return $this->visibilityIdentify;
     }
 
     /**
