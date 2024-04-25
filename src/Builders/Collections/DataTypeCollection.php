@@ -85,6 +85,11 @@ class DataTypeCollection extends CollectionAbstract
         return in_array(DataType::float, $this->getItems()->toArray());
     }
 
+    public function hasObject()
+    {
+        return in_array(DataType::object->name, array_keys($this->getItems()->toArray()));
+    }
+
     public function implode()
     {
         /** @var DataType $item */
@@ -113,4 +118,16 @@ class DataTypeCollection extends CollectionAbstract
     {
         return $this->items->count();
     }
+
+    public function toArray(): array
+    {
+        //TODO 转数组
+        $arr = [];
+        foreach ($this->getItems() as $item) {
+            $arr[] = $item;
+        }
+        return $arr;
+    }
+
+
 }

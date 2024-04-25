@@ -2,7 +2,6 @@
 
 namespace Createlinux\ClassCreator\Builders\Function;
 
-use Createlinux\ClassCreator\Builders\Basic\DataType;
 use Createlinux\ClassCreator\Builders\Collections\DataTypeCollection;
 
 /**
@@ -43,7 +42,7 @@ class FunctionArgument
 
     public function getDefaultValuePlain()
     {
-        if ($this->dataType->getItems() === 'string') {
+        if($this->dataType->hasString() && is_int($this->defaultValue)){
             return "'{$this->getDefaultValue()}'";
         }
 

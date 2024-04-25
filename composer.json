@@ -11,6 +11,11 @@
       "src/Helpers/functions.php"
     ]
   },
+  "autoload-dev": {
+    "psr-4": {
+      "Createlinux\\Tests\\": "tests"
+    }
+  },
   "authors": [
     {
       "name": "Administrator",
