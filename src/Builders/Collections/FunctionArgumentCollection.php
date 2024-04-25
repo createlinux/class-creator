@@ -2,45 +2,18 @@
 
 namespace Createlinux\ClassCreator\Builders\Collections;
 
+use Createlinux\ClassCreator\Builders\Abstract\CollectionAbstract;
 use Createlinux\ClassCreator\Builders\FunctionBuilder;
 use Createlinux\ClassCreator\Builders\Function\FunctionArgument;
 use Illuminate\Support\Collection;
 
-class FunctionArgumentCollection
+class FunctionArgumentCollection extends CollectionAbstract
 {
-    /**
-     * @var Collection<FunctionArgument>
-     */
-    protected Collection $items;
-
-    public function __construct()
-    {
-        $this->items = new Collection();
-    }
 
     public function put(FunctionArgument $methodArgument)
     {
         $this->items->put($methodArgument->getName(), $methodArgument);
         return $this;
-    }
-
-    public function toArray()
-    {
-        $list = [];
-        foreach ($this->items as $item) {
-            $list[] = $item->toArray();
-        }
-        return $list;
-    }
-
-    /**
-     *
-     *
-     * @return Collection<FunctionArgument>
-     */
-    public function getItems(): Collection
-    {
-        return $this->items;
     }
 
     public function getOutputPlain()

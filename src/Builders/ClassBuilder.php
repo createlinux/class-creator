@@ -89,6 +89,10 @@ class ClassBuilder
         return $this->usingClasses;
     }
 
+    /**
+     *
+     * @return MethodCollection<FunctionBuilder>
+     */
     public function getMethods(): MethodCollection
     {
         return $this->methods;

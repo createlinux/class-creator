@@ -2,9 +2,9 @@
 
 namespace Createlinux\ClassCreator\Builders\Collections;
 
-use Illuminate\Support\Collection;
+use Createlinux\ClassCreator\Builders\Abstract\CollectionAbstract;
 
-class ClassUsingCollection
+class ClassUsingCollection extends CollectionAbstract
 {
 
 }

@@ -2,17 +2,13 @@
 
 namespace Createlinux\ClassCreator\Builders\Collections;
 
+use Createlinux\ClassCreator\Builders\Abstract\CollectionAbstract;
 use Createlinux\ClassCreator\Builders\FunctionBuilder;
 use Illuminate\Support\Collection;
 
-class MethodCollection
+class MethodCollection extends CollectionAbstract
 {
     protected Collection $items;
-
-    public function __construct()
-    {
-        $this->items = new Collection();
-    }
 
     public function put(FunctionBuilder $method)
     {
@@ -20,12 +16,6 @@ class MethodCollection
         return $this;
     }
 
-    public function toArray()
-    {
-        $list = [];
-        foreach ($this->items as $item) {
-            $list[] = $item->toArray();
-        }
-        return $list;
-    }
+
+
 }
