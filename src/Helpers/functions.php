@@ -1,5 +1,7 @@
 <?php
 
+require_once __DIR__."/class_builder.php";
+
 use Illuminate\Support\Str;
 
 if (!function_exists('to_singular_name')) {
