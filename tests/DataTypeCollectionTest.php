@@ -16,6 +16,15 @@ class DataTypeCollectionTest extends TestCase
         $this->dataTypeCollection = new DataTypeCollection();
     }
 
+    public function testNull()
+    {
+        $this->dataTypeCollection->pushNull();
+        $this->dataTypeCollection->pushNull();
+        $this->assertEquals('null', $this->dataTypeCollection->implode());
+        $this->dataTypeCollection->pushInt();
+        $this->assertEquals('null|int', $this->dataTypeCollection->implode());
+    }
+
 
     public function testHasString()
     {
@@ -31,7 +40,7 @@ class DataTypeCollectionTest extends TestCase
         $this->dataTypeCollection->pushString();
         $this->dataTypeCollection->pushObject("App\\Models\\User");
 
-        $this->assertEquals('int|callable|string|User',$this->dataTypeCollection->implode());
+        $this->assertEquals('int|callable|string|User', $this->dataTypeCollection->implode());
     }
 
     public function testHasCallable()
@@ -50,4 +59,11 @@ class DataTypeCollectionTest extends TestCase
         $this->dataTypeCollection->pushObject("App\\Models\\User");
         $this->assertEquals(true, $this->dataTypeCollection->hasObject());
     }
+
+    public function testGetUsingClass()
+    {
+        $this->dataTypeCollection->pushObject("App\\Models\\User");
+        $this->assertEquals(1,$this->dataTypeCollection->getUsingClasses()->getItems()->count());
+    }
+
 }

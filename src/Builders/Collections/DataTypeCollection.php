@@ -98,7 +98,7 @@ class DataTypeCollection extends CollectionAbstract
             if ($type !== 'object') {
                 $returnTypes[] = $item->name;
             } else {
-                $returnTypes[] = basename($item);
+                $returnTypes[] = class_basename($item);
             }
         }
         return implode("|", $returnTypes);

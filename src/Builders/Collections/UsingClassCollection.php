@@ -13,6 +13,11 @@ class UsingClassCollection extends CollectionAbstract
         return $this;
     }
 
+    public function count()
+    {
+        return $this->getItems()->count();
+    }
+
     /**
      *
      *
