@@ -2,7 +2,9 @@
 
 namespace Createlinux\ClassCreator\Builders;
 
+use Createlinux\ClassCreator\Builders\Collections\DataTypeCollection;
 use Createlinux\ClassCreator\Builders\Collections\FunctionArgumentCollection;
+use Createlinux\ClassCreator\Builders\Collections\UsingClassCollection;
 use Createlinux\ClassCreator\Builders\Function\FunctionArgument;
 use Createlinux\ClassCreator\Builders\Function\FunctionIdentify;
 use Illuminate\Support\Str;
@@ -10,10 +12,11 @@ use Illuminate\Support\Str;
 class FunctionBuilder
 {
     protected string $name = '';
-    protected string $body = "{\n}";
-    protected array $returnType = [];
+    protected string $body = "{\n    }";
+    protected DataTypeCollection $returnType;
     protected FunctionArgumentCollection $arguments;
     private ?FunctionIdentify $identify;
+    protected UsingClassCollection $usingClasses;
 
     public function __construct(string $name, FunctionIdentify $identify = null)
     {
@@ -21,6 +24,8 @@ class FunctionBuilder
         $this->arguments = new FunctionArgumentCollection();
         $this->name = Str::camel($name);
         $this->identify = $identify;
+        $this->returnType = new DataTypeCollection();
+        $this->usingClasses = new UsingClassCollection();
     }
 
     public function getName(): string
@@ -53,22 +58,18 @@ class FunctionBuilder
      * 获取方法的纯文本
      * @return string
      */
-    public function getOutputPlainText()
+    public function getOutputPlainText(): string
     {
         //
-        $identify = $this->getIdentify() ? $this->getIdentify()->name." " : '';
+        $identify = $this->getIdentify() ? "    " . $this->getIdentify()->name . " " : '';
 
-        /** @var FunctionArgument $argument */
-
-
-        $method = <<<BODY
-{$identify}function {$this->getName()}({$this->getArguments()->getOutputPlain()})
-{$this->getBody()}
-BODY;
-        return $method;
+        $returnDataType = $this->getReturnType()->count() ? " : {$this->getReturnType()->implode()}" : "";
+        return "
+{$identify}function {$this->getName()}({$this->getArguments()->getOutputPlain()}){$returnDataType}
+    {$this->getBody()}";
     }
 
-    public function getReturnType(): array
+    public function getReturnType(): DataTypeCollection
     {
         return $this->returnType;
     }
@@ -86,7 +87,26 @@ BODY;
      */
     public function setBody(string $body): FunctionBuilder
     {
-        $this->body = "{\n{$body}\n}";
+        $this->body = "{    \n{$body}   \n}";
         return $this;
+    }
+
+    public function getUsingClasses(): UsingClassCollection
+    {
+        return $this->usingClasses;
+    }
+
+    /**
+     *
+     * 创建参数
+     * @param string $name
+     * @param $defaultValue
+     * @return FunctionArgument
+     */
+    public function createArgument(string $name, $defaultValue = null)
+    {
+        $argument = new FunctionArgument($name, $defaultValue);
+        $this->getArguments()->put($argument);
+        return $argument;
     }
 }

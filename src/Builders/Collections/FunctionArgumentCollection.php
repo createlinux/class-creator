@@ -3,9 +3,7 @@
 namespace Createlinux\ClassCreator\Builders\Collections;
 
 use Createlinux\ClassCreator\Builders\Abstract\CollectionAbstract;
-use Createlinux\ClassCreator\Builders\FunctionBuilder;
 use Createlinux\ClassCreator\Builders\Function\FunctionArgument;
-use Illuminate\Support\Collection;
 
 class FunctionArgumentCollection extends CollectionAbstract
 {
@@ -21,7 +19,8 @@ class FunctionArgumentCollection extends CollectionAbstract
         $lines = [];
         /** @var FunctionArgument $item */
         foreach ($this->getItems() as $item) {
-            $argItem = "{$item->getDataType()->name} \${$item->getName()}";
+
+            $argItem = "{$item->getDataType()->implode()} \${$item->getName()}";
             if ($item->getDefaultValue()) {
                 $argItem = $argItem . "= {$item->getDefaultValuePlain()}";
             }

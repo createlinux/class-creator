@@ -31,6 +31,9 @@ abstract class CollectionAbstract implements \IteratorAggregate
     {
         $list = [];
         foreach ($this->items as $item) {
+            if(!in_array('toArray',get_class_methods($item))){
+                return [];
+            }
             $list[] = $item->toArray();
         }
         return $list;

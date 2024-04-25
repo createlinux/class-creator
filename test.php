@@ -2,25 +2,37 @@
 require_once __DIR__ . "/vendor/autoload.php";
 
 use Createlinux\ClassCreator\Builders\ClassBuilder;
-use Createlinux\ClassCreator\Builders\FunctionBuilder;
-use \Createlinux\ClassCreator\Builders\Function\MethodDataType;
-use \Createlinux\ClassCreator\Builders\Function\FunctionArgument;
-use \Createlinux\ClassCreator\Builders\Function\FunctionIdentify;
+
+$doctorBuilder = create_class_builder("Doctor", "\\App\\Http\\Controllers", "医生模型");
+
+$userBuilder = create_class_builder("User", "\\App\\Models", "用户");
 
 
-$classBuilder = new ClassBuilder('DoctorUser', "用户");
-$classMethod = new FunctionBuilder("store");
+$UserBuilder = create_class_builder('DoctorUser', "App\Http\\Controllers", "用户");
 
-$arg1 = new FunctionArgument("name",MethodDataType::string,"张三");
-$classMethod->getArguments()->put($arg1);
-$arg2 = new FunctionArgument('age',MethodDataType::int,18);
-$classMethod->getArguments()->put($arg2);
+$UserBuilder->setExtend($doctorBuilder);
+$UserBuilder->pushUsingClass($UserBuilder);
 
-$classBuilder->getMethods()->put($classMethod);
+$method = $UserBuilder->createMethod("store");
+$method
+    ->getReturnType()
+    ->pushFloat()
+    ->pushInt()
+    ->pushObject(ClassBuilder::class, $UserBuilder);
 
-$body  = <<<BODY
-    //TODO
-BODY;
+$method->createArgument("name")
+    ->getDataType()
+    ->pushCallable()
+    ->pushString();
+$method->createArgument("age", 21)
+    ->getDataType()
+    ->pushInt();
 
-$classMethod->setBody($body);
-print_r($classMethod->getOutputPlainText());
+$methodDestroy = $UserBuilder->createMethod("destroy");
+$methodDestroy
+    ->getReturnType()
+    ->pushFloat()
+    ->pushInt();
+
+
+print_r($UserBuilder->getOutputPlainText());

@@ -2,17 +2,20 @@
 
 namespace Createlinux\ClassCreator\Builders\Function;
 
+use Createlinux\ClassCreator\Builders\Basic\DataType;
+use Createlinux\ClassCreator\Builders\Collections\DataTypeCollection;
+
 class FunctionArgument
 {
     protected string $name = '';
-    protected MethodDataType $dataType;
+    protected DataTypeCollection $dataType;
     protected $defaultValue = null;
 
-    public function __construct(string $name, MethodDataType $dataType, $defaultValue)
+    public function __construct(string $name, $defaultValue = null)
     {
 
         $this->name = $name;
-        $this->dataType = $dataType;
+        $this->dataType = new DataTypeCollection();
         $this->defaultValue = $defaultValue;
     }
 
@@ -21,7 +24,7 @@ class FunctionArgument
         return $this->name;
     }
 
-    public function getDataType(): MethodDataType
+    public function getDataType(): DataTypeCollection
     {
         return $this->dataType;
     }
@@ -36,7 +39,7 @@ class FunctionArgument
 
     public function getDefaultValuePlain()
     {
-        if ($this->dataType->name === 'string') {
+        if ($this->dataType->getItems() === 'string') {
             return "'{$this->getDefaultValue()}'";
         }
 
@@ -51,5 +54,6 @@ class FunctionArgument
             'defaultValue' => $this->getDefaultValue()
         ];
     }
+
 
 }
