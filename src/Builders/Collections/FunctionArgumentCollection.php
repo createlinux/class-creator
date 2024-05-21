@@ -22,7 +22,7 @@ class FunctionArgumentCollection extends CollectionAbstract
 
             $argItem = "{$item->getDataType()->implode()} \${$item->getName()}";
             if ($item->getDefaultValue()) {
-                $argItem = $argItem . "= {$item->getDefaultValuePlain()}";
+                $argItem = $argItem . " = {$item->getDefaultValuePlain()}";
             }
             $lines[] = $argItem;
         }
