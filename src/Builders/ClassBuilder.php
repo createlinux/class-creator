@@ -106,6 +106,11 @@ class ClassBuilder
         return $this->methods;
     }
 
+    /**
+     *
+     * 输出纯文本文件内容
+     * @return string
+     */
     public function getOutputPlainText()
     {
         /**
@@ -115,7 +120,7 @@ class ClassBuilder
         /**
          * 继承的类
          */
-        $extendClass = $this->getExtend()->getName() ? "extends {$this->getExtend()->getName()}" : '';
+        $extendClass = $this->getExtend()?->getName() ? "extends {$this->getExtend()->getName()}" : '';
         /**
          * 引入的类
          */
@@ -127,6 +132,7 @@ class ClassBuilder
         $methods = $this->getMethods()->getOutputPlainText();
 
         $classFileContent = <<<CLASS
+<?php
 $namespace
 $usingClasses
 /**
@@ -142,6 +148,12 @@ CLASS;
         return $classFileContent;
     }
 
+    /**
+     *
+     * 设置继承的类
+     * @param ClassBuilder|null $classBuilder
+     * @return $this
+     */
     public function setExtend(?ClassBuilder $classBuilder): ClassBuilder
     {
         $this->extend = $classBuilder;
@@ -172,9 +184,17 @@ CLASS;
         return $this->getNamespace() . "\\" . $this->getName();
     }
 
-    public function addProperty()
+    /**
+     *
+     * 给类添加属性
+     * @return ClassProperty
+     */
+    public function addProperty(string $name, VisibilityIdentify $visibilityIdentify = VisibilityIdentify::protected)
     {
         //TODO 添加
+        $classProperty = new ClassProperty($name, $visibilityIdentify);
+        $this->getProperties()->put($name, $classProperty);
+        return $classProperty;
     }
 
     public function getProperties(): ClassPropertyCollection
