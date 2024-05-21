@@ -42,7 +42,7 @@ class FunctionArgument
 
     public function getDefaultValuePlain()
     {
-        if($this->dataType->hasString() && is_int($this->defaultValue)){
+        if($this->dataType->hasString()){
             return "'{$this->getDefaultValue()}'";
         }
 
