@@ -5,14 +5,14 @@ use Createlinux\ClassCreator\Builders\ClassBuilder;
 
 $doctorBuilder = create_class_builder("Doctor", "App\\Http\\Controllers", "医生模型");
 
-$userModel = create_class_builder("User", "App\\Models", "用户");
+$userBuilder = create_class_builder("User", "App\\Models", "用户");
 
 
 $UserBuilder = create_class_builder('DoctorUser', "App\Http\\Controllers", "用户");
-$UserBuilder->addProperty();
 
 $UserBuilder->setExtend($doctorBuilder);
-$UserBuilder->pushUsingClass($userModel);
+
+$UserBuilder->pushUsingClass($userBuilder);
 $UserBuilder->pushUsingClass(create_class_builder("TestUser","App\\Http\\Controllers","测试用户"));
 
 $method = $UserBuilder->createMethod("store");
@@ -20,7 +20,7 @@ $method
     ->getReturnType()
     ->pushFloat()
     ->pushInt()
-    ->pushObject($userModel->getNameWithNamespace(), $UserBuilder);
+    ->pushObject($userBuilder->getNameWithNamespace(), $UserBuilder);
 
 $method->createArgument("name")
     ->getDataType()
@@ -35,6 +35,3 @@ $methodDestroy
     ->getReturnType()
     ->pushFloat()
     ->pushInt();
-
-
-print_r($UserBuilder->getOutputPlainText());
