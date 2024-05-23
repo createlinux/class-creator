@@ -49,11 +49,13 @@ class DataTypeCollection extends CollectionAbstract
 
     public function pushObject(string $classNameWithNamespace, ?ClassBuilder $parentClassBuilder = null)
     {
-        $newClassBuilder = create_class_builder(class_basename($classNameWithNamespace), get_class_namespace($classNameWithNamespace));
+        $classBaseName = basename($classNameWithNamespace);
+        $namespace = get_class_namespace($classNameWithNamespace);
+        $newClassBuilder = create_class_builder($classBaseName, $namespace);
 
         $this->getUsingClasses()->put($classNameWithNamespace, $newClassBuilder);
 
-        if ($parentClassBuilder) {
+        if ($parentClassBuilder && $classNameWithNamespace !== $parentClassBuilder->getNameWithNamespace()) {
             $parentClassBuilder->pushUsingClass($newClassBuilder);
         }
         $this->getItems()->put(DataType::object->name, $classNameWithNamespace);
