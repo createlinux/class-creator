@@ -17,6 +17,25 @@ class ClassPropertyCollection extends CollectionAbstract
      */
     public function put(string $name, ClassProperty $classProperty)
     {
-        return $this->getItems()->put($name,$classProperty);
+        return $this->getItems()->put($name, $classProperty);
+    }
+
+    public function toArray(): array
+    {
+        $result = [];
+        foreach ($this->getItems() as $item) {
+            $result[] = $item->toArray();
+        }
+        return $result;
+    }
+
+    public function getOutputPlainText(): string
+    {
+        //TODO 纯文本输出
+        $outputPlainText = '';
+        /** @var ClassProperty $item */
+        foreach ($this->getItems() as $item) {
+
+        }
     }
 }

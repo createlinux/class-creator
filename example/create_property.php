@@ -12,4 +12,4 @@ $parentClassBuilder = new \Createlinux\ClassCreator\Builders\ClassBuilder('User'
 $classProperty->getDataType()->pushObject($classWithNamespace,$parentClassBuilder);
 
 print_r("获取名称:". $classProperty->getName()."\n");
-print_r($classProperty->getDataType()->getItems());
+print_r($classProperty->getDataType()->implode());

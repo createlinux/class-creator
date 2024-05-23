@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "e1fdee4d6429580e6e6f1725b3da6ade",
+    "content-hash": "a3b70316f3f027f5b7d09d40e06c35cb",
     "packages": [
         {
             "name": "carbonphp/carbon-doctrine-types",
@@ -74,6 +74,46 @@
                 }
             ],
             "time": "2023-12-11T17:09:12+00:00"
+        },
+        {
+            "name": "createlinux/standard-object-name",
+            "version": "v2.0.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/createlinux/standard-object-name.git",
+                "reference": "68c056a62994239b6102bec9c8b2d1174f073016"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/createlinux/standard-object-name/zipball/68c056a62994239b6102bec9c8b2d1174f073016",
+                "reference": "68c056a62994239b6102bec9c8b2d1174f073016",
+                "shasum": ""
+            },
+            "require": {
+                "illuminate/support": "*",
+                "php": "^8.2"
+            },
+            "type": "library",
+            "autoload": {
+                "files": [
+                    "src/functions.php"
+                ],
+                "psr-4": {
+                    "Createlinux\\StandardObjectName\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "authors": [
+                {
+                    "name": "孟小成",
+                    "email": "howmao@qq.com"
+                }
+            ],
+            "support": {
+                "issues": "https://github.com/createlinux/standard-object-name/issues",
+                "source": "https://github.com/createlinux/standard-object-name/tree/v2.0.0"
+            },
+            "time": "2024-05-13T02:06:24+00:00"
         },
         {
             "name": "doctrine/inflector",

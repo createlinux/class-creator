@@ -81,5 +81,13 @@ class ClassProperty
         return $this->nullable;
     }
 
-
+    public function toArray()
+    {
+        return [
+            'name' => $this->getName(),
+            'visibilityIdentify' => $this->getVisibility()->name,
+            'dataTypes' => $this->getDataType()->toArray(),
+            'nullable' => $this->isNullable()
+        ];
+    }
 }

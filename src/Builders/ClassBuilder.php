@@ -122,6 +122,11 @@ class ClassBuilder
          */
         $extendClass = $this->getExtend()?->getName() ? "extends {$this->getExtend()->getName()}" : '';
         /**
+         * 类属性
+         */
+        $classProperties = $this->getProperties()->getOutputPlainText();
+
+        /**
          * 引入的类
          */
         $usingClasses = $this->getUsingClasses()->getOutputPlainText();
@@ -141,6 +146,7 @@ $usingClasses
 */
 class {$this->getName()} $extendClass
 {
+    $classProperties;
     $methods
 }
 CLASS;
@@ -189,7 +195,7 @@ CLASS;
      * 给类添加属性
      * @return ClassProperty
      */
-    public function addProperty(string $name, VisibilityIdentify $visibilityIdentify = VisibilityIdentify::protected)
+    public function addProperty(string $name, VisibilityIdentify $visibilityIdentify = VisibilityIdentify::protected): ClassProperty
     {
         //TODO 添加
         $classProperty = new ClassProperty($name, $visibilityIdentify);

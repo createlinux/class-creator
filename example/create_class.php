@@ -1,9 +1,15 @@
 <?php
 require_once __DIR__ . "/../vendor/autoload.php";
+
 //TODO 测试
 use \Createlinux\ClassCreator\Builders\Basic\VisibilityIdentify;
 
 $doctorBuilder = create_class_builder("Doctor", "App\\Http\\Controllers", "医生");
+$doctorBuilder->addProperty('name')->getDataType()
+    ->pushString()
+    ->pushNull();
+$doctorBuilder->addProperty('mobile')->getDataType()->pushString();
+
 //创建store方法
 $storeMethod = $doctorBuilder->createMethod("store", VisibilityIdentify::protected);
 $storeMethod
