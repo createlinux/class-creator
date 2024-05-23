@@ -23,12 +23,14 @@ class ClassProperty
      */
     private DataTypeCollection $dataType;
 
+    private bool $nullable = false;
+
     public function __construct(string $name, VisibilityIdentify $visibility = null)
     {
-        if(!$name){
+        if (!$name) {
             throw new \InvalidArgumentException("参数1不能为空");
         }
-        $this->name = Str::camel(to_singular_name($name));
+        $this->name = Str::camel($name);
         $this->visibility = $visibility;
         $this->dataType = new DataTypeCollection();
     }
@@ -66,6 +68,17 @@ class ClassProperty
     public function getDataType(): DataTypeCollection
     {
         return $this->dataType;
+    }
+
+    public function setNullable(bool $nullable): ClassProperty
+    {
+        $this->nullable = $nullable;
+        return $this;
+    }
+
+    public function isNullable(): bool
+    {
+        return $this->nullable;
     }
 
 
