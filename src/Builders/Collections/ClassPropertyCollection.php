@@ -37,5 +37,6 @@ class ClassPropertyCollection extends CollectionAbstract
         foreach ($this->getItems() as $item) {
 
         }
+        return "";
     }
 }

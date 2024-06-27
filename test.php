@@ -30,8 +30,12 @@ $method->createArgument("age", 21)
     ->getDataType()
     ->pushInt();
 
+$method->setBody(file_get_contents(__DIR__."/methods/store.php"));
+
 $methodDestroy = $UserBuilder->createMethod("destroy");
 $methodDestroy
     ->getReturnType()
     ->pushFloat()
     ->pushInt();
+
+print_r($UserBuilder->getOutputPlainText());

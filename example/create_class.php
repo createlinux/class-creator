@@ -5,7 +5,8 @@ require_once __DIR__ . "/../vendor/autoload.php";
 use \Createlinux\ClassCreator\Builders\Basic\VisibilityIdentify;
 
 $doctorBuilder = create_class_builder("Doctor", "App\\Http\\Controllers", "医生");
-$doctorBuilder->addProperty('name')->getDataType()
+$doctorBuilder->addProperty('name')
+    ->getDataType()
     ->pushString()
     ->pushNull();
 $doctorBuilder->addProperty('mobile')->getDataType()->pushString();

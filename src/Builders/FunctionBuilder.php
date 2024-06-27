@@ -91,7 +91,7 @@ class FunctionBuilder
      */
     public function setBody(string $body): FunctionBuilder
     {
-        $this->body = "{    \n{$body}   \n}";
+        $this->body = "{    \n{$body}  \n   }";
         return $this;
     }
 

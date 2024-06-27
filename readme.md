@@ -1,3 +1,8 @@
+# 安装
+```shell
+composer require createlinux/class-creator
+```
+
 # 类文件生成器
 ```php
 例如我们生成一个Doctor的类，设置命名空间后，设置医生模型，类名称注释为医生
